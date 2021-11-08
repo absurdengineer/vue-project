@@ -13,6 +13,10 @@ const routes = [
     component: Application,
     children: [
       {
+        path: "",
+        redirect: "/app/dashboard",
+      },
+      {
         path: "dashboard",
         component: Home,
       },
@@ -39,6 +43,10 @@ const routes = [
         component: Signup,
       },
     ],
+  },
+  {
+    path: "/",
+    redirect: "/app/dashboard",
   },
 ];
 
