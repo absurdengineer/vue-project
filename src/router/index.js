@@ -1,15 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Application from "../views/app/Application.vue";
 import Home from "../views/app/Home.vue";
-import CustomerList from "../views/app/customers/CustomerList.vue";
-import CustomerDetails from "../views/app/customers/CustomerDetails.vue";
-import Authentication from "../views/auth/Authentication.vue";
-import Signup from "../views/auth/Signup.vue";
 import Login from "../views/auth/Login.vue";
+import NotFound from "../views/NotFound.vue";
+import Signup from "../views/auth/Signup.vue";
+import Application from "../views/app/Application.vue";
+import Authentication from "../views/auth/Authentication.vue";
+import CustomersList from "../views/app/customers/CustomersList.vue";
+import CustomerUpdate from "../views/app/customers/CustomerUpdate.vue";
+import CustomerDetails from "../views/app/customers/CustomerDetails.vue";
 
 const routes = [
   {
     path: "/app",
+    name: "app",
     component: Application,
     children: [
       {
@@ -18,15 +21,25 @@ const routes = [
       },
       {
         path: "dashboard",
+        name: "dashboard",
         component: Home,
       },
       {
         path: "customers",
-        component: CustomerList,
+        name: "customers-list",
+        component: CustomersList,
       },
       {
         path: "customers/:id",
+        name: "customer-details",
         component: CustomerDetails,
+        props: true,
+      },
+      {
+        path: "customers/:id/update",
+        name: "customer-update",
+        component: CustomerUpdate,
+        props: true,
       },
     ],
   },
@@ -36,13 +49,20 @@ const routes = [
     children: [
       {
         path: "login",
+        name: "login",
         component: Login,
       },
       {
         path: "signup",
+        name: "signup",
         component: Signup,
       },
     ],
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "not-found",
+    component: NotFound,
   },
   {
     path: "/",
@@ -53,6 +73,8 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  linkActiveClass: "active",
+  linkExactActiveClass: "exact-active",
 });
 
 export default router;
